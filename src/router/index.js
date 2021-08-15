@@ -63,6 +63,12 @@ export const constantRoutes = [
     meta: { title: 'Components', icon: 'el-icon-s-help' },
     children: [
       {
+        path: 'carlendar',
+        name: 'Carlendar',
+        component: () => import('@/views/carlendar/index'),
+        meta: { title: '日历', icon: 'table' }
+      },
+      {
         path: 'table',
         name: 'Table',
         component: () => import('@/views/table/index'),
@@ -89,6 +95,7 @@ export const constantRoutes = [
       }
     ]
   },
+  
 
 
 
