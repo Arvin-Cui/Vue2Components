@@ -1,85 +1,64 @@
 <template>
-  <div class="app-container">
-    <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="Activity name">
-        <el-input v-model="form.name" />
-      </el-form-item>
-      <el-form-item label="Activity zone">
-        <el-select v-model="form.region" placeholder="please select your zone">
-          <el-option label="Zone one" value="shanghai" />
-          <el-option label="Zone two" value="beijing" />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="Activity time">
-        <el-col :span="11">
-          <el-date-picker v-model="form.date1" type="date" placeholder="Pick a date" style="width: 100%;" />
-        </el-col>
-        <el-col :span="2" class="line">-</el-col>
-        <el-col :span="11">
-          <el-time-picker v-model="form.date2" type="fixed-time" placeholder="Pick a time" style="width: 100%;" />
-        </el-col>
-      </el-form-item>
-      <el-form-item label="Instant delivery">
-        <el-switch v-model="form.delivery" />
-      </el-form-item>
-      <el-form-item label="Activity type">
-        <el-checkbox-group v-model="form.type">
-          <el-checkbox label="Online activities" name="type" />
-          <el-checkbox label="Promotion activities" name="type" />
-          <el-checkbox label="Offline activities" name="type" />
-          <el-checkbox label="Simple brand exposure" name="type" />
-        </el-checkbox-group>
-      </el-form-item>
-      <el-form-item label="Resources">
-        <el-radio-group v-model="form.resource">
-          <el-radio label="Sponsor" />
-          <el-radio label="Venue" />
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="Activity form">
-        <el-input v-model="form.desc" type="textarea" />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">Create</el-button>
-        <el-button @click="onCancel">Cancel</el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+	<div>
+		<el-form :rules="rules" ref="Form" :model="Form">
+			<el-form-item label="姓名" prop="name">
+				<Input v-model="Form.name" placeholder="请输入姓名" />
+			</el-form-item>
+			<el-form-item label="密码" prop="pwd">
+				<Input v-model="Form.pwd" placeholder="请输入密码" />
+			</el-form-item>
+			<el-form-item>
+				<el-button
+					type="primary"
+					@click="submitForm"
+					style="marginLeft:110px ;"
+					>登录</el-button
+				>
+			</el-form-item>
+		</el-form>
+	</div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      }
-    }
-  },
-  methods: {
-    onSubmit() {
-      this.$message('submit!')
-    },
-    onCancel() {
-      this.$message({
-        message: 'cancel!',
-        type: 'warning'
-      })
-    }
-  }
-}
+	import ElForm from "./ElForm.vue";
+	import ElFormItem from "./ElFormItem.vue";
+	import Input from "./Input.vue";
+	export default {
+		components: {
+			ElForm,
+			ElFormItem,
+			Input
+		},
+		data() {
+			return {
+				Form: { name: "", pwd: "" },
+				rules: {
+					name: [
+						{ required: true, message: "用户名不能为空" },
+						{ min: 8, message: "用户名必须大于8个字符" },
+						{ max: 16, message: "用户名必须小于16个字符" }
+					],
+					pwd: [
+						{ required: true, message: "密码不能为空" },
+						{ min: 8, message: "密码必须大于8个字符" },
+						{ max: 16, message: "密码必须小于16个字符" }
+					]
+				}
+			};
+		},
+		methods: {
+			submitForm() {
+				this.$refs.Form.validate(ret => {
+					if (ret === false) {
+						return false;
+					} else {
+						this.$message.success("校验通过");
+					}
+				});
+			}
+		}
+	};
 </script>
 
-<style scoped>
-.line{
-  text-align: center;
-}
+<style lang="scss" scoped>
 </style>
-
