@@ -66,7 +66,7 @@ export const constantRoutes = [
         path: 'carlendar',
         name: 'Carlendar',
         component: () => import('@/views/carlendar/index'),
-        meta: { title: '日历', icon: 'table' }
+        meta: { title: '日历', icon: 'el-icon-date' }
       },
       {
         path: 'table',
@@ -85,6 +85,12 @@ export const constantRoutes = [
         name: 'Form',
         component: () => import('@/views/form/index'),
         meta: { title: 'Form', icon: 'form' }
+      },
+      {
+        path: 'img',
+        name: 'Img',
+        component: () => import('@/views/img/index'),
+        meta: { title: 'Img', icon: 'el-icon-picture' }
       },
       {
         path: 'test',
